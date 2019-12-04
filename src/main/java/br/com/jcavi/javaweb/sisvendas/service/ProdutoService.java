@@ -33,9 +33,9 @@ public class ProdutoService {
 		this.produtoRepository.save(produto);
 	}
 		
-	public void remover(Produto produto) {
-		Produto produtoBD = obter(produto.getId());
-		this.produtoRepository.delete(produtoBD);
+	public void remover(Long id) {
+		Produto produto = obter(id);
+		this.produtoRepository.delete(produto);
 	}
 	
 	public List<Produto> listarTodasCategoria(Categoria categoria){

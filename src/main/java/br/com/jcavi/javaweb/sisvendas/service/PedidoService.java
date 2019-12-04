@@ -32,8 +32,7 @@ public class PedidoService {
 		this.pedidoRepository.save(Pedido);
 	}
 		
-	public void remover(Pedido pedido) {
-		Pedido pedidoBD = obter(pedido.getId());
-		this.pedidoRepository.delete(pedidoBD);
+	public void remover(Long id) {
+		this.pedidoRepository.findByCliente(id);
 	}
 }

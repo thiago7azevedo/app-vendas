@@ -1,24 +1,18 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.envers.Audited;
 
 @Entity
-@Audited
-public class Pedido extends BaseEntity {
+@Table(name = "pedido")
+public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 7432755522641254584L;
 

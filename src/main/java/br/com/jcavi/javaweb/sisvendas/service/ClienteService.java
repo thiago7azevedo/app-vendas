@@ -31,9 +31,9 @@ public class ClienteService {
 	public void salvar(Cliente cliente) {
 		this.clienteRepository.save(cliente);
 	}
-		
-	public void remover(Cliente cliente) {
-		Cliente clienteBD = obter(cliente.getId());
-		this.clienteRepository.delete(clienteBD);
+
+	public void delete(Long id) {
+		Cliente cliente = obter(id);
+		clienteRepository.delete(cliente);
 	}
 }

@@ -1,5 +1,6 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.EmbeddedId;
@@ -9,8 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.envers.Audited;
 
 @Entity
-@Audited
-public class ItemPedido extends BaseEntity {
+public class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = -2119591136104524986L;
 

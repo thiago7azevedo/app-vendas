@@ -55,23 +55,11 @@ public class CategoriaController {
 		Categoria categoria = this.categoriaService.obter(id);
 		return carregaAdicionar(categoria);
 	}
-	
-	@GetMapping("/detalhes/{id}")
-	public ModelAndView detalhar(@PathVariable("id") Long id) {
-		Categoria categoria = this.categoriaService.obter(id);
-		ModelAndView mv = new ModelAndView("categoria/detalhes");
-		mv.addObject("categoria", categoria);
-//		List<Produto> produtos = produtoService.listarTodasCategoria(categoria);
-//		mv.addObject("produtos", produtos);
-		return mv;	
-	}
-	
+
 	@GetMapping("/deletar/{id}")
 	public ModelAndView deletar(@PathVariable("id")Long id) {
 		Categoria categoria = this.categoriaService.obter(id);
 		this.categoriaService.remover(categoria);
 		return listar();
-		
 	}
-
 }

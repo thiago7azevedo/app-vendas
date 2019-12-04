@@ -31,10 +31,10 @@ public class ProdutoController {
 
 	private final UploadService uploadService;
 		
-	@GetMapping("")
+	@GetMapping
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("produto/listar");
-		List<Produto> produtos = this.produtoService.listarTodos();
+		List<Produto> produtos = produtoService.listarTodos();
 		mv.addObject("produtos", produtos);
 		return mv;
 	}
@@ -43,8 +43,8 @@ public class ProdutoController {
 	public ModelAndView carregaAdicionar(Produto produto) {
 		ModelAndView mv = new ModelAndView("produto/adicionar");
 		mv.addObject("produto", produto);
-		List<Categoria> categorias = this.categoriaService.listarTodas();
-		mv.addObject("todasCategorias", categorias);
+		List<Categoria> categorias = categoriaService.listarTodas();
+		mv.addObject("categorias", categorias);
 		return mv;
 	}
 		
@@ -61,26 +61,13 @@ public class ProdutoController {
 	
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
-		Produto produto = this.produtoService.obter(id);
+		Produto produto = produtoService.obter(id);
 		return carregaAdicionar(produto);
 	}
 	
-	@GetMapping("/detalhes/{id}")
-	public ModelAndView detalhar(@PathVariable("id") Long id) {
-		Produto produto = this.produtoService.obter(id);
-		ModelAndView mv = new ModelAndView("produto/detalhes");
-		mv.addObject("produto", produto);
-		List<Categoria> categorias = categoriaService.listarTodasCategorias(produto);
-		mv.addObject("categorias", categorias);
-		return mv;	
-	}
-	
 	@GetMapping("/deletar/{id}")
-	public ModelAndView deletar(@PathVariable("id")Long id) {
-		Produto produto = this.produtoService.obter(id);
-		this.produtoService.remover(produto);
+	public ModelAndView deletar(@PathVariable Long id) {
+		this.produtoService.remover(id);
 		return listar();
-		
 	}
-
 }

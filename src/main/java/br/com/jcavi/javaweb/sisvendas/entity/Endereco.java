@@ -1,11 +1,6 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.envers.Audited;
@@ -14,16 +9,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
-@Audited
-@Getter
-@Setter
-@NoArgsConstructor
-public class Endereco extends BaseEntity {
-		
-	/**
-	 * 
-	 */
+@Table(name = "endereco")
+public class Endereco implements Serializable {
+
 	private static final long serialVersionUID = -1894929885000943932L;
 
 	@Id
@@ -44,5 +35,57 @@ public class Endereco extends BaseEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="id_cliente")
-	private Cliente cliente;	
+	private Cliente cliente;
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 }

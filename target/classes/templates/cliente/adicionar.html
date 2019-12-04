@@ -13,95 +13,46 @@
 </head>
 <body>
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+<div th:replace="header/header"></div>
 
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <a href="" class="navbar-brand h2 mb-0">JCAVI</a>
-        <button class="navbar-toggler" type="submit" data-toggle="collapse" data-target="#navbarSite">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="colapse navbar-collapse" id="navbarSite">
-            <ul class="navbar-nav mr-auto">
-            	<li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navDrop">Categorias</a>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item" th:href="@{/categoria/adicionar}">Cadastrar</a>
-                        <a href="#" class="dropdown-item" th:href="@{/categoria}">Listar</a>
-                    </div>
-                </li>                
-            </ul>
-            <ul class="navbar-nav mr-auto">
-            	<li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navDrop">Clientes</a>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item" th:href="@{/cliente/adicionar}">Cadastrar</a>
-                        <a href="#" class="dropdown-item" th:href="@{/cliente}">Listar</a>
-                    </div>
-                </li>
-            </ul>
-            <ul class="navbar-nav mr-auto">
-            	<li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navDrop">Produtos</a>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item" th:href="@{/produto/adicionar}">Cadastrar</a>
-                        <a href="#" class="dropdown-item" th:href="@{/produto}">Listar</a>
-                    </div>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navDrop">Social</a>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">facebook</a>
-                        <a href="#" class="dropdown-item">Twitter</a>
-                        <a href="#" class="dropdown-item">Instagram</a>
-                        <a href="#" class="dropdown-item">Linkedin</a>
-                    </div>
-                </li>
-            </ul>
-            <form action="" class="form-inline">
-                <input type="search" class="form-control ml-4 mr-2" placeholder="Buscar...">
-                <button type="submit" class="btn btn-dark">Ok</button>
-            </form>
-        </div>
+        <h1 class="display-5">Cadastro de Clientes</h1>
+        <p class="lead">Sistema de Vendas</p>
     </div>
-
-</nav>
-
-<div class="jumbotron container col-md-6">
-    <h1>Sistema de Vendas</h1>
-    <p class="lead">CADASTRO DE CLIENTE</p>
 </div>
 
-<th:block th:include="cliente/validacao"></th:block> 
+<div class="container col-6" style="margin-bottom: 20px">
+    <form th:object="${cliente}" th:action="@{/cliente/adicionar}" method="post">
 
-<div class="container col-6">
-    <form method="post" th:object="${cliente}" th:action="@{/cliente/adicionar}">
-		<div class="form-group row">
-			<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-				<div th:each="detailedError : ${#fields.detailedErrors()}">
-			  		<span th:text="${detailedError.message}"></span>
-			  	</div>
-			</div>	
-		</div>	
-		
+        <div class="form-group row">
+            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                <div th:each="detailedError : ${#fields.detailedErrors()}">
+                    <span th:text="${detailedError.message}"></span>
+                </div>
+            </div>
+        </div>
+
         <div class="form-row">
-        	<input type="hidden" class="form-control" id="id" name="id" th:field="*{id}" readonly />
-        	
+            <input type="hidden" class="form-control" id="id" th:field="*{id}" readonly>
             <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
                 <label for="nome">Nome </label>
                 <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Nome">
             </div>
-            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('senha')}? 'has-error'">
-                <label for="senha">Senha</label>
-                <input type="password" class="form-control" id="senha" th:field="*{senha}" placeholder="Senha">
+            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('sobrenome')}? 'has-error'">
+                <label for="sobrenome">Sobrenome</label>
+                <input type="text" class="form-control" id="sobrenome" th:field="*{sobrenome}" placeholder="Sobrenome">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" th:field="*{email}" placeholder="Email">
-            </div>            
+            </div>
+            <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('telefone')}? 'has-error'">
+                <label for="telefone">Telefone</label>
+                <input type="text" class="form-control" id="telefone" th:field="*{telefone}" placeholder="Telefone">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-10" th:classappend="${#fields.hasErrors('profissao')}? 'has-error'">
@@ -113,9 +64,6 @@
                 <input type="text" class="form-control" id="idade" th:field="*{idade}" placeholder="Idade">
             </div>
         </div>
-        
-        <br />
-        <input type="button" onclick="location.href='/cliente';" value="Cancelar" />&nbsp;&nbsp;
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 </div>

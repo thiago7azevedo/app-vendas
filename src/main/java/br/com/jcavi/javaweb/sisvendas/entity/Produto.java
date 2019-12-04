@@ -1,19 +1,11 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -21,12 +13,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.envers.Audited;
 
 @Entity
-@Audited
-public class Produto extends BaseEntity {
-	
-	/**
-	 * 
-	 */
+@Table(name = "produto")
+public class Produto implements Serializable {
+
 	private static final long serialVersionUID = 7432755522641254584L;
 
 	@Id
@@ -47,8 +36,8 @@ public class Produto extends BaseEntity {
 
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="produto_categoria",
-			   joinColumns=@JoinColumn(name="produto_id"),
-			   inverseJoinColumns=@JoinColumn(name="categoria_id"))
+			   joinColumns=@JoinColumn(name="id_categoria"),
+			   inverseJoinColumns=@JoinColumn(name="id_produto"))
 	private List<Categoria> categorias;
 	
 	@OneToMany(mappedBy="id.produto", cascade=CascadeType.ALL)

@@ -13,9 +13,7 @@ import br.com.jcavi.javaweb.sisvendas.entity.Pedido;
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
 
 	public List<Pedido> findAll();
-	
-	public List<Pedido> findAllByDataPedidoBetween(Date dataInicio, Date dataTermino);
-		
-	public List<Pedido> findAllByCliente(Cliente cliente);
+
+	Pedido findByCliente(Long id);
 
 }

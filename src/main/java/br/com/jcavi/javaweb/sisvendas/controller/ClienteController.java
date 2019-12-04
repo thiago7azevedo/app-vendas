@@ -39,11 +39,11 @@ public class ClienteController {
 	}
 	*/
 	
-	@GetMapping("")
+	@GetMapping
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("cliente/listar");
-		List<Cliente> clientes = this.clienteService.listarTodos();
-		mv.addObject("clientes", clientes);
+		List<Cliente> cliente = this.clienteService.listarTodos();
+		mv.addObject("cliente", cliente);
 		return mv;
 	}
 	
@@ -78,19 +78,10 @@ public class ClienteController {
 		mv.addObject("enderecos", enderecos);
 		return mv;	
 	}
-	
-	@PostMapping("/detalhes/{id}")
-	public String salvarEndereco(@PathVariable("id") Long id, Endereco endereco) {
-		Cliente cliente = this.clienteService.obter(id);
-		endereco.setCliente(cliente);
-		enderecoService.salvar(endereco);
-		return "redirect:/cliente/detalhes/{id}";
-	}
-	
+
 	@GetMapping("/deletar/{id}")
-	public ModelAndView deletar(@PathVariable("id")Long id) {
-		Cliente cliente = this.clienteService.obter(id);
-		this.clienteService.remover(cliente);
+	public ModelAndView deletar(@PathVariable Long id) {
+		clienteService.delete(id);
 		return listar();		
 	}
 }

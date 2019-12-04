@@ -1,16 +1,12 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -20,12 +16,9 @@ import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Audited
-public class Cliente extends BaseEntity {
-		
-	/**
-	 * 
-	 */
+@Table(name = "cliente")
+public class Cliente implements Serializable {
+
 	private static final long serialVersionUID = -8973478584952214689L;
 
 	@Id	
@@ -38,11 +31,9 @@ public class Cliente extends BaseEntity {
 	@NotEmpty(message="E-mail é obrigatório")
 	@Email(message="E-mail inválido")
 	private String email;
-	
-	@NotEmpty(message="Senha é obrigatório")	
-	@Length(min=6,max=8,message="A senha deve possuir no mínimo 6 e no máximo 8 caracteres")
-	private String senha;
-	
+
+	private String sobrenome;
+
 	@NotNull(message="Idade é obrigatório")
 	@Min(value=18,message="Não são permitidos cadastros de clientes menores de 18 anos")
 	private Integer idade;
@@ -50,6 +41,8 @@ public class Cliente extends BaseEntity {
 	@NotEmpty(message="Profissão é obrigatório")
 	@Length(min=3,max=200, message="Profissão deve conter pelo menos 3 caracteres")
 	private String profissao;
+
+	private String telefone;
 	
 	// mappedBy -> indica o nome do atributo na classe (entidade) ManyToOne da relação
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
@@ -85,14 +78,6 @@ public class Cliente extends BaseEntity {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	public Integer getIdade() {
 		return idade;
 	}
@@ -115,5 +100,29 @@ public class Cliente extends BaseEntity {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
-	}	
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
+	}
+
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 }
