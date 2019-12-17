@@ -31,7 +31,7 @@ public class ProdutoController {
 
 	private final UploadService uploadService;
 		
-	@GetMapping
+	@GetMapping("/listar")
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("produto/listar");
 		List<Produto> produtos = produtoService.listarTodos();

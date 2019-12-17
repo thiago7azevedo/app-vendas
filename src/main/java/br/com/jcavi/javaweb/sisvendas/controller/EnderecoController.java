@@ -25,7 +25,7 @@ public class EnderecoController {
 
     @PostMapping("/salvar/{id}")
     public String salvarEndereco(@PathVariable("id") Long id, Endereco endereco) {
-        Cliente cliente = clienteService.obter(id);
+        Cliente cliente = clienteService.findById(id);
         endereco.setCliente(cliente);
         enderecoService.salvar(endereco);
         return "redirect:/cliente/detalhes/{id}";

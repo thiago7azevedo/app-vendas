@@ -1,28 +1,24 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.envers.Audited;
-import org.hibernate.validator.constraints.Length;
+import java.util.*;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente implements Serializable {
-
+public class Cliente implements UserDetails { //UserDetails é do spring security, implementa 6 métodos
+															// precisa implemetar automatico e alterar detalhes
 	private static final long serialVersionUID = -8973478584952214689L;
 
 	@Id	
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotEmpty(message="Nome é obrigatório")
@@ -30,7 +26,10 @@ public class Cliente implements Serializable {
 	
 	@NotEmpty(message="E-mail é obrigatório")
 	@Email(message="E-mail inválido")
+	@Column(unique = true)
 	private String email;
+
+	private String senha;
 
 	private String sobrenome;
 
@@ -43,6 +42,12 @@ public class Cliente implements Serializable {
 	private String profissao;
 
 	private String telefone;
+
+	@ManyToMany
+	@JoinTable(name="cliente_role",
+			joinColumns=@JoinColumn(name="id_clientes"),
+			inverseJoinColumns=@JoinColumn(name="id_roles"))
+	private List<Role> roles;
 	
 	// mappedBy -> indica o nome do atributo na classe (entidade) ManyToOne da relação
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
@@ -124,5 +129,73 @@ public class Cliente implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente{" +
+				"id=" + id +
+				", nome='" + nome + '\'' +
+				", email='" + email + '\'' +
+				", senha='" + senha + '\'' +
+				", sobrenome='" + sobrenome + '\'' +
+				", idade=" + idade +
+				", profissao='" + profissao + '\'' +
+				", telefone='" + telefone + '\'' +
+				", roles=" + roles +
+				", enderecos=" + enderecos +
+				", pedidos=" + pedidos +
+				'}';
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.roles;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }

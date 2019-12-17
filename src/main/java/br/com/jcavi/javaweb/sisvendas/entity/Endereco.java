@@ -18,7 +18,7 @@ public class Endereco implements Serializable {
 	private static final long serialVersionUID = -1894929885000943932L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotEmpty(message="Endereço é obrigatório")

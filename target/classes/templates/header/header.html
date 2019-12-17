@@ -13,7 +13,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
     <div class="container">
-        <a href="/" class="navbar-brand h2 mb-0">JCAVI WEB</a>
+        <a href="/dashboard" class="navbar-brand h2 mb-0">JCAVI WEB</a>
         <button class="navbar-toggler" type="submit" data-toggle="collapse" data-target="#navbarSite">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,7 +24,7 @@
                     <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Categorias</a>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item" th:href="@{/categoria/adicionar}">Cadastrar</a>
-                        <a href="#" class="dropdown-item" th:href="@{/categoria}">Listar</a>
+                        <a href="#" class="dropdown-item" th:href="@{/categoria/listar}">Listar</a>
                     </div>
                 </li>
             </ul>
@@ -34,7 +34,7 @@
                     <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Clientes</a>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item" th:href="@{/cliente/adicionar}">Cadastrar</a>
-                        <a href="#" class="dropdown-item" th:href="@{/cliente}">Listar</a>
+                        <a href="#" class="dropdown-item" th:href="@{/cliente/listar}">Listar</a>
                     </div>
                 </li>
             </ul>
@@ -44,7 +44,7 @@
                     <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Produtos</a>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item" th:href="@{/produto/adicionar}">Cadastrar</a>
-                        <a href="#" class="dropdown-item" th:href="@{/produto}">Listar</a>
+                        <a href="#" class="dropdown-item" th:href="@{/produto/listar}">Listar</a>
                     </div>
                 </li>
             </ul>
@@ -54,7 +54,7 @@
                     <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Sistema de Venda</a>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item" th:href="@{/venda/adicionar}">Venda</a>
-                        <a href="#" class="dropdown-item" th:href="@{/venda}">Listar</a>
+                        <a href="#" class="dropdown-item" th:href="@{/venda/listar}">Listar</a>
                     </div>
                 </li>
             </ul>
@@ -71,7 +71,16 @@
                 </li>
             </ul>
 
-            <form action="" class="form-inline">
+            <ul class="navbar-nav ml10">
+                <form action="#" th:action="@{/logout}" method="post">
+                    <div class="btn btn-primary">
+                        <button type="submit" value="Logout">Sair</button>
+                    </div>
+                </form>
+            </ul>
+                <span th:inline="text">[[${#httpServletRequest.remoteUser}]]!</span>
+
+                 <form action="" class="form-inline">
                 <input type="search" class="form-control ml-4 mr-2" placeholder="Buscar...">
                 <button type="submit" class="btn btn-dark">Ok</button>
             </form>

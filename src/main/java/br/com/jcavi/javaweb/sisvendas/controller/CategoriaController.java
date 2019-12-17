@@ -26,7 +26,7 @@ public class CategoriaController {
 	
 	//private final ProdutoService produtoService;
 	
-	@GetMapping("")
+	@GetMapping("/listar")
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("categoria/listar");
 		List<Categoria> categorias = this.categoriaService.listarTodas();

@@ -65,7 +65,7 @@
                     <th:block th:each="categoria : ${categorias}">
                         <div class="checkbox  checkbox-inline">
                             <input type="checkbox" name="categoriasAdicionadas" th:value="${categoria.id}" th:field="${produto.categorias}"/> &nbsp;
-                            <span th:text="${categoria.name}"></span>
+                            <span th:text="${categoria.nome}"></span>
                         </div>
                     </th:block>
                 </div>

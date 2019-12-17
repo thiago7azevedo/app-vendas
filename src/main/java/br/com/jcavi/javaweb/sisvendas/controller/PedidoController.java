@@ -30,7 +30,7 @@ public class PedidoController {
     private final ClienteService clienteService;
     private final ProdutoService produtoService;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ModelAndView listar() {
         ModelAndView mv = new ModelAndView("venda/listar");
         List<Pedido> pedidos = pedidoService.listarTodos();
@@ -41,7 +41,7 @@ public class PedidoController {
     @GetMapping("/adicionar")
     public ModelAndView carregaAdicionar(Pedido pedido) {
         ModelAndView mv = new ModelAndView("venda/adicionar");
-        List<Cliente> clientes = clienteService.listarTodos();
+        List<Cliente> clientes = clienteService.findAll();
         List<Produto> produtos = produtoService.listarTodos();
         mv.addObject("produtos", produtos);
         mv.addObject("clientes", clientes);

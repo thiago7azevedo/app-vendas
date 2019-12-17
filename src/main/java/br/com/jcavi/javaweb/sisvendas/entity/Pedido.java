@@ -17,7 +17,7 @@ public class Pedido implements Serializable {
 	private static final long serialVersionUID = 7432755522641254584L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotEmpty(message="Data é obrigatório")

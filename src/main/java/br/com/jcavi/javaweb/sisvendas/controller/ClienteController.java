@@ -24,8 +24,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor=@__(@Autowired))
 public class ClienteController {
 
+	@Autowired
 	private final ClienteService clienteService;
-	
+
+	@Autowired
 	private final EnderecoService enderecoService;
 	
 	// O uso do lombok (@RequiredArgsConstructor(onConstructor=@__(@Autowired)))
@@ -39,10 +41,10 @@ public class ClienteController {
 	}
 	*/
 	
-	@GetMapping
+	@GetMapping("/listar")
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("cliente/listar");
-		List<Cliente> cliente = this.clienteService.listarTodos();
+		List<Cliente> cliente = this.clienteService.findAll();
 		mv.addObject("cliente", cliente);
 		return mv;
 	}
@@ -65,13 +67,13 @@ public class ClienteController {
 	
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
-		Cliente cliente = this.clienteService.obter(id);
+		Cliente cliente = this.clienteService.findById(id);
 		return carregaAdicionar(cliente);
 	}
 	
 	@GetMapping("/detalhes/{id}")
 	public ModelAndView detalhar(@PathVariable("id") Long id) {
-		Cliente cliente = this.clienteService.obter(id);
+		Cliente cliente = this.clienteService.findById(id);
 		ModelAndView mv = new ModelAndView("cliente/detalhes");
 		mv.addObject("cliente", cliente);
 		List<Endereco> enderecos = enderecoService.listarTodosEnderecos(cliente);
