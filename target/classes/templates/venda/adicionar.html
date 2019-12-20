@@ -27,7 +27,7 @@
 </div>
 
 <div class="container col-8" style="margin-bottom: 20px">
-    <form th:object="${pedido}" th:action="@{/pedido/adicionar}" method="post">
+    <form th:object="${pedido}" th:action="@{/venda/adicionar}" method="post">
 
         <div class="form-group row">
             <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
@@ -42,18 +42,13 @@
 
             <div class="form-group col-md-8">
                 <label>Cliente </label>
-                <select class="form-control selectpicker" data-live-search="true">
-                    <option th:each="clientes : ${clientes}"
-                            th:value="${clientes.id}"
-                            th:text="${clientes.nome}"></option>
+                <select th:field="*{cliente}" class="form-control selectpicker" data-live-search="true">
+                    <option th:each="cliente : ${clientes}"
+                            th:value="${cliente.id}"
+                            th:text="${cliente.nome}"></option>
                 </select>
             </div>
 
-            <div class="form-group col-md-4" th:classappend="${#fields.hasErrors('dataPedido')}? 'has-error'">
-                <label for="dataPedido">Data do Pedido </label>
-                <input type="date" class="form-control" id="dataPedido" th:field="*{dataPedido}"
-                       placeholder="Data Pedido">
-            </div>
         </div>
 
         <div class="form-row">
@@ -69,14 +64,14 @@
                 <tbody>
                 <tr>
                     <td width="400px">
-                        <select class="form-control selectpicker" data-live-search="true" title="Escolha um produto">
+                        <select name="produtos[]" class="form-control selectpicker" data-live-search="true" title="Escolha um produto">
                             <option th:each="produto : ${produtos}"
                                     th:value="${produto.id}"
                                     th:text="${produto.nome}"></option>
                         </select>
                     </td>
-                    <td><input type="text" class="col-xs-2 form-control" name="razao[]" placeholder="Quantidade"></td>
-                    <td><input type="text" class="col-xs-2 form-control" name="desconto[]" placeholder="Desconto"></td>
+                    <td><input type="text" class="col-xs-2 form-control" name="quantidades[]" placeholder="Quantidade"></td>
+                    <td><input type="text" class="col-xs-2 form-control" name="descontos[]" placeholder="Desconto"></td>
                 </tr>
                 </tbody>
             </table>

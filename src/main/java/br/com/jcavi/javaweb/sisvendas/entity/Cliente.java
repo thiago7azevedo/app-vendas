@@ -1,30 +1,29 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+
 import java.util.*;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente implements UserDetails { //UserDetails é do spring security, implementa 6 métodos
 															// precisa implemetar automatico e alterar detalhes
-	private static final long serialVersionUID = -8973478584952214689L;
+	private static final long serialVersionUID = 1L;
 
 	@Id	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@NotNull(message = "Please enter id")
 	private Long id;
 	
-	@NotEmpty(message="Nome é obrigatório")
+// 		@NotEmpty(message="Nome é obrigatório")
 	private String nome;
 	
-	@NotEmpty(message="E-mail é obrigatório")
+//	@NotEmpty(message="E-mail é obrigatório")
 	@Email(message="E-mail inválido")
 	@Column(unique = true)
 	private String email;
@@ -33,12 +32,12 @@ public class Cliente implements UserDetails { //UserDetails é do spring securit
 
 	private String sobrenome;
 
-	@NotNull(message="Idade é obrigatório")
-	@Min(value=18,message="Não são permitidos cadastros de clientes menores de 18 anos")
+//	@NotNull(message="Idade é obrigatório")
+//	@Min(value=18,message="Não são permitidos cadastros de clientes menores de 18 anos")
 	private Integer idade;
 	
-	@NotEmpty(message="Profissão é obrigatório")
-	@Length(min=3,max=200, message="Profissão deve conter pelo menos 3 caracteres")
+//	@NotEmpty(message="Profissão é obrigatório")
+//	@Length(min=3,max=200, message="Profissão deve conter pelo menos 3 caracteres")
 	private String profissao;
 
 	private String telefone;

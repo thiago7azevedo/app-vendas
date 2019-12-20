@@ -1,6 +1,7 @@
 package br.com.jcavi.javaweb.sisvendas.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,12 +21,12 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message="Data é obrigatório")
-	private Date dataPedido;
+//	@NotEmpty(message="Data é obrigatório")
+	private LocalDate dataPedido;
 			
 	@ManyToOne
 	@JoinColumn(name="id_cliente")
-	@NotEmpty(message="Cliente é obrigatório")
+//	@NotEmpty(message="Cliente é obrigatório")
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy="id.pedido", cascade=CascadeType.ALL)
@@ -41,11 +42,11 @@ public class Pedido implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDataPedido() {
+	public LocalDate getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(Date dataPedido) {
+	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 

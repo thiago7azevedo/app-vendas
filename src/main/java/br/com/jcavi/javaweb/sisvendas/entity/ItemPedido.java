@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.envers.Audited;
 
@@ -17,17 +18,17 @@ public class ItemPedido implements Serializable {
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
-	@NotEmpty(message="Preço é obrigatório")
-	private BigDecimal preco;
+//	@NotNull(message="Preço é obrigatório")
+	private Double preco;
 	
-	@NotEmpty(message="Quantidade é obrigatório")
+	@NotNull(message="Quantidade é obrigatório")
 	private Integer quantidade;
 	
 	private Double desconto;	
 	
 	public ItemPedido() {}
 	
-	public ItemPedido(Produto produto, Pedido pedido, BigDecimal preco, Integer qtde, Double desc) {
+	public ItemPedido(Produto produto, Pedido pedido, Double preco, Integer qtde, Double desc) {
 		this.id.setProduto(produto);
 		this.id.setPedido(pedido);
 		this.preco = preco;
@@ -59,11 +60,11 @@ public class ItemPedido implements Serializable {
 		this.id.setPedido(pedido);
 	}
 	
-	public BigDecimal getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(BigDecimal preco) {
+	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 
