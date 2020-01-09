@@ -29,18 +29,7 @@ public class ClienteController {
 
 	@Autowired
 	private final EnderecoService enderecoService;
-	
-	// O uso do lombok (@RequiredArgsConstructor(onConstructor=@__(@Autowired)))
-	// faz com que não seja necessário criar o construtor recebendo os services
-	// e marcar este construtor com @Autowired
-	/*
-	@Autowired
-	public ClienteController(ClienteService clienteService, EnderecoService enderecoService) {
-		this.clienteService = clienteService;
-		this.enderecoService = enderecoService;
-	}
-	*/
-	
+
 	@GetMapping("/listar")
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("cliente/listar");

@@ -20,7 +20,7 @@ public class Produto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@NotNull(message = "Please enter id")
+//	@NotNull(message = "Please enter id")
 	private Long id;
 	
 	@NotEmpty(message="Nome é obrigatório")

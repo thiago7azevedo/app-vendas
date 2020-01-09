@@ -1,6 +1,7 @@
 package br.com.jcavi.javaweb.sisvendas.config;
 
 import br.com.jcavi.javaweb.sisvendas.entity.Cliente;
+import br.com.jcavi.javaweb.sisvendas.entity.UserSS;
 import br.com.jcavi.javaweb.sisvendas.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ public class ImplementsUserDetailsService implements UserDetailsService {
 
     private final ClienteService clienteService;
 
+
     @Autowired
     public ImplementsUserDetailsService(ClienteService clienteService) {
         this.clienteService = clienteService;
@@ -30,6 +32,6 @@ public class ImplementsUserDetailsService implements UserDetailsService {
         if (Objects.isNull(cliente)) {
             throw new UsernameNotFoundException("Cliente não encontrado");
         }
-        return new User(cliente.getUsername(), cliente.getPassword(), true, true, true, true, cliente.getAuthorities());
+        return new UserSS(cliente.getId(), cliente.getEmail(), cliente.getSenha(), cliente.getRoles());
     }
 }

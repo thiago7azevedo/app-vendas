@@ -2,8 +2,12 @@ package br.com.jcavi.javaweb.sisvendas.service;
 
 import java.util.List;
 
+import br.com.jcavi.javaweb.sisvendas.auth.ClienteLogado;
+import br.com.jcavi.javaweb.sisvendas.entity.Cliente;
+import br.com.jcavi.javaweb.sisvendas.entity.UserSS;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.jcavi.javaweb.sisvendas.entity.Pedido;
@@ -33,6 +37,10 @@ public class PedidoService {
 	}
 		
 	public void remover(Long id) {
-		this.pedidoRepository.findByCliente(id);
+		this.pedidoRepository.findById(id);
+	}
+	public List<Pedido> buscarPedidoCliente(Cliente cliente){
+		List<Pedido> pedidosPorCliente = pedidoRepository.findByCliente(cliente);
+		return pedidosPorCliente;
 	}
 }

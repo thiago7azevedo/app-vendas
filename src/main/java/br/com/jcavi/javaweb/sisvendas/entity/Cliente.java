@@ -11,20 +11,20 @@ import java.util.*;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente implements UserDetails { //UserDetails é do spring security, implementa 6 métodos
-															// precisa implemetar automatico e alterar detalhes
+public class Cliente {
+
 	private static final long serialVersionUID = 1L;
 
-	@Id	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@NotNull(message = "Please enter id")
 	private Long id;
-	
-// 		@NotEmpty(message="Nome é obrigatório")
+
+	// 		@NotEmpty(message="Nome é obrigatório")
 	private String nome;
-	
-//	@NotEmpty(message="E-mail é obrigatório")
-	@Email(message="E-mail inválido")
+
+	//	@NotEmpty(message="E-mail é obrigatório")
+	@Email(message = "E-mail inválido")
 	@Column(unique = true)
 	private String email;
 
@@ -32,31 +32,32 @@ public class Cliente implements UserDetails { //UserDetails é do spring securit
 
 	private String sobrenome;
 
-//	@NotNull(message="Idade é obrigatório")
+	//	@NotNull(message="Idade é obrigatório")
 //	@Min(value=18,message="Não são permitidos cadastros de clientes menores de 18 anos")
 	private Integer idade;
-	
-//	@NotEmpty(message="Profissão é obrigatório")
+
+	//	@NotEmpty(message="Profissão é obrigatório")
 //	@Length(min=3,max=200, message="Profissão deve conter pelo menos 3 caracteres")
 	private String profissao;
 
 	private String telefone;
 
 	@ManyToMany
-	@JoinTable(name="cliente_role",
-			joinColumns=@JoinColumn(name="id_clientes"),
-			inverseJoinColumns=@JoinColumn(name="id_roles"))
+	@JoinTable(name = "cliente_role",
+			joinColumns = @JoinColumn(name = "id_clientes"),
+			inverseJoinColumns = @JoinColumn(name = "id_roles"))
 	private List<Role> roles;
-	
+
 	// mappedBy -> indica o nome do atributo na classe (entidade) ManyToOne da relação
-	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	//@NotEmpty(message="Pelo menos 1 endereço é obrigatório")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
-	@OneToMany(mappedBy="cliente")
+
+	@OneToMany(mappedBy = "cliente")
 	private Set<Pedido> pedidos = new HashSet<>();
-	
-	public Cliente() {}
+
+	public Cliente() {
+	}
 
 	public Long getId() {
 		return id;
@@ -161,40 +162,5 @@ public class Cliente implements UserDetails { //UserDetails é do spring securit
 				", enderecos=" + enderecos +
 				", pedidos=" + pedidos +
 				'}';
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.roles;
-	}
-
-	@Override
-	public String getPassword() {
-		return this.senha;
-	}
-
-	@Override
-	public String getUsername() {
-		return this.email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
 	}
 }

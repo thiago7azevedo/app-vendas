@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import br.com.jcavi.javaweb.sisvendas.auth.ClienteLogado;
 import br.com.jcavi.javaweb.sisvendas.entity.*;
 
 import br.com.jcavi.javaweb.sisvendas.service.*;
@@ -32,7 +33,9 @@ public class PedidoController {
     @GetMapping("/listar")
     public ModelAndView listar() {
         ModelAndView mv = new ModelAndView("venda/listar");
-        List<Pedido> pedidos = pedidoService.listarTodos();
+        UserSS userSS = ClienteLogado.authenticated();
+        Cliente cliente = clienteService.findById(userSS.getId());
+        List<Pedido> pedidos = pedidoService.buscarPedidoCliente(cliente);
         mv.addObject("pedidos", pedidos);
         return mv;
     }

@@ -10,14 +10,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Lista de pedidos</title>
+    <title>Listar clientes</title>
 </head>
 <body>
-<div th:replace="header/header" />
 
-<div class="container col-md-6">
-    <p class="lead">PEDIDOS</p> 
-    <span th:if="${cliente}" th:text="${cliente.nome}"></span>
+<div th:replace="header/header"></div>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-5">Lista de Pedidos Vendidos</h1>
+        <p class="lead">Sistema de Vendas</p>
+    </div>
 </div>
 
 <div class="container col-md-6">
@@ -25,26 +28,21 @@
         <thea>
             <tr>
                 <th scope="col">#</th>
-                <th th:if="!${cliente}" scope="col">Cliente</th>
+                <th scope="col">Nome Cliente</th>
                 <th scope="col">Data</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">Produto</th>
 
             </tr>
         </thea>
         <tbody>
         <tr th:each="pedido : ${pedidos}">
             <th><span th:text="${pedido.id}"></span></th>
-            <td th:if="!${cliente}"><span th:text="${pedido.cliente.nome}"></span></td>
-            <th><span th:text="${pedido.dataPedido}"></span></th>
-            <td><a href="#" th:href="@{/venda/detalhes/{link}(link=${pedido.id})}"><span></span>detalhar</a></td>
-            <td><a href="#" th:href="@{/venda/deletar/{link}(link=${pedido.id})}"><span></span>remover</a></td>
+            <td><a href="#" th:href="@{/venda/listar/{link}(link=${pedido.id})}"><span th:text="${pedido.cliente.nome}"></span><span ></span></a></td>
+            <td><a href="#" th:href="@{/venda/editar/{link}(link=${pedido.id})}"><span th:text="${pedido.dataPedido}"></span></a></td>
+            <td><a href="#" th:href="@{/venda/deletar/{link}(link=${pedido.id})}"><span></span></a></td>
         </tr>
         </tbody>
     </table>
-    
-    <br /><br />
-	<input type="button" onclick="location.href='/venda/adicionar';" value="Cadastrar" />
 </div>
 
 <!-- JavaScript (Opcional) -->
